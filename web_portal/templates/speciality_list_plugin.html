@@ -1,0 +1,22 @@
+<section class="probootstrap-section probootstrap-bg-white probootstrap-border-top">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 text-center section-heading probootstrap-animate">
+        <h2>{{ instance.list_title }}</h2>
+        <p class="lead">{{ instance.short_description }}</p>
+      </div>
+    </div>
+    <div class="row">
+      {% for i,j in instance.paired_list %}
+        <div class="col-md-6">
+          {% if i != None %}
+            {% include "speciality_item_plugin.html" with instance=i %}
+          {% endif %}
+          {% if j != None %}
+            {% include "speciality_item_plugin.html" with instance=j %}
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

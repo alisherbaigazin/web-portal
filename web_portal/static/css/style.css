@@ -393,14 +393,14 @@ a:hover, a:focus, a:active {
 
 .probootstrap-navbar .dropdown > .dropdown-menu > li a:hover {
   border-top: none;
-  background: #ffffff;
-  color: #49D292;
+  background: #f2f2f2;
+  color: #000;
 }
 
 .probootstrap-navbar .dropdown > .dropdown-menu > li.open > a, .probootstrap-navbar .dropdown > .dropdown-menu > li:hover > a, .probootstrap-navbar .dropdown > .dropdown-menu > li:focus > a, .probootstrap-navbar .dropdown > .dropdown-menu > li:active > a {
   border-top: none;
-  color: #49D292;
-  background: #ffffff;
+  color: #000;
+  background: #f2f2f2;
 }
 
 .probootstrap-navbar .dropdown > .dropdown-menu > li.dropdown-submenu.open > a, .probootstrap-navbar .dropdown > .dropdown-menu > li.dropdown-submenu:hover > a, .probootstrap-navbar .dropdown > .dropdown-menu > li.dropdown-submenu:focus > a, .probootstrap-navbar .dropdown > .dropdown-menu > li.dropdown-submenu:active > a {
@@ -423,7 +423,7 @@ a:hover, a:focus, a:active {
   border: none;
   -webkit-box-shadow: none;
   box-shadow: none;
-  background: #49D292;
+  background: #fff;
   border-radius: 0;
   -webkit-box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.15);
   box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.15);
@@ -915,7 +915,7 @@ filter: invert(1);
 
 .btn.btn-primary {
   border: 1px solid #49D292;
-  background: #49D292;
+  background: #fff;
   color: #ffffff;
 }
 
@@ -935,7 +935,7 @@ filter: invert(1);
 }
 
 .btn.btn-ghost:hover {
-  background: #49D292;
+  background: #fff;
   color: #ffffff;
 }
 
@@ -1531,7 +1531,7 @@ filter: invert(1);
 .nav-tabs.probootstrap-tabs > li > a, .nav-pills.probootstrap-tabs > li > a {
   border-radius: 0px;
   padding: 20px 30px;
-  background: #49D292;
+  background: #fff;
   color: #ffffff;
   font-size: 16px;
   border: none !important;

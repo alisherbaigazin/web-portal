@@ -1,10 +1,4 @@
 aldryn-apphooks-config==0.6.0
-aldryn-boilerplates==0.8.0
-aldryn-categories==1.2.0
-aldryn-common==1.0.5
-aldryn-newsblog==2.2.1
-aldryn-people==2.2.0
-aldryn-translation-tools==0.3.0
 asgiref==3.3.4
 Babel==2.9.0
 backport-collections==0.1
