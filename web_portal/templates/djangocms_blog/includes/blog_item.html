@@ -1,0 +1,34 @@
+{% load djangocms_blog i18n easy_thumbnails_tags cms_tags %}
+<div id="post-{{ post.slug }}" class="item" style="flex: 1 1 0; margin-right: 20px">
+  <a href="{{ post.get_absolute_url }}" class="probootstrap-featured-news-box">
+<!--    <img src="{{ thumb.url }}" alt="{{ post.main_image.default_alt_text }}" width="{{ thumb.width }}" height="{{ thumb.height }}" />-->
+
+    <figure class="probootstrap-media">
+
+    {% thumbnail post.main_image post.thumbnail_options.size crop=post.thumbnail_options.crop upscale=post.thumbnail_options.upscale subject_location=post.main_image.subject_location as thumb %}
+      <img src="{{ thumb.url }}"
+           style="    width: 100%;
+    object-fit: cover;"
+                                            alt="{{ post.main_image.default_alt_text }}"
+                                            class="img-responsive"></figure>
+    <div class="probootstrap-text">
+      <h3>{{ post.title }}</h3>
+      <p>
+        {% if not TRUNCWORDS_COUNT %}
+            {% render_model post "abstract" "" "" "safe" %}
+        {% else %}
+            {% render_model post "abstract" "" "" "truncatewords_html:TRUNCWORDS_COUNT|safe"  %}
+        {% endif %}
+      </p>
+      <span class="probootstrap-date">
+        <i class="icon-calendar"></i>
+          {% if post.date_published %}
+            {{ post.date_published|date:"DATE_FORMAT" }}
+          {% endif %}
+      </span>
+
+    </div>
+  </a>
+</div>
+
+

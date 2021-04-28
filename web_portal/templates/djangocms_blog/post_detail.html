@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load cms_tags %}
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+{% block content %}
+	{% placeholder "content" or %}
+
+    <div class="spacer"></div>
+    <div class="page-header page-header-blog-post-1 white">
+        <div class="page-header-container container">
+            <div class="page-header-content">
+                <h1 class="heading">BLOG</h1>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="blog-container blog-single container">
+        <div class="row">
+            <div class="col-md-8 blog-content margin-bottom-70 clearfix">
+                {% placeholder banner_leaderboard_top %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 blog-content margin-bottom-70 clearfix">
+                <article id="post-1" class="post-1 post format-standard">
+                    <header class="entry-header">
+                        <div class="post-thumbnail-area">
+                            {% placeholder "post_header_image" or %}
+                            <img src="/static/img/onepage-slide9.jpg" alt="image_blog"/>
+                            {% endplaceholder %}
+                        </div>
+                    </header>
+                    <div class="entry-content">
+                        <div class="entry-title blog-info">
+                            <h1 class="heading">{% placeholder "post_header_title" or %}POST_TITLE{% endplaceholder %}</h1>
+                        </div>
+                        {% placeholder "POST_BODY" or %}POST_BODY{% endplaceholder %}
+                    </div>
+                    <footer class="entry-footer">
+                        <div class="entry-description">
+                            <h6 class="post-date-classic">{% placeholder "post_date" or %}POST_DATE{% endplaceholder %}</h6>
+                        </div>
+                    </footer>
+                </article>
+                <div class="post-additional">
+                    <script type="text/javascript">
+                        // Popup window code
+                        function newPopup(url) {
+                            popupWindow = window.open(
+                                    url, 'popUpWindow', 'height=700,width=800,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes')
+                        }
+                    </script>
+                    <ul class="post-share list-inline">
+                        <li><a href="JavaScript:newPopup('https://www.facebook.com/sharer/sharer.php?u='+window.location.href)"><i
+                                class="icon ion-social-facebook"></i></a></li>
+                        <li><a href="JavaScript:newPopup('http://twitter.com/home/?status=Nice blog post - '+window.location.href);"><i
+                                class="icon ion-social-twitter"></i></a></li>
+                        <li><a href="JavaScript:newPopup('https://plus.google.com/share?url='+window.location.href); "><i
+                                class="icon ion-social-googleplus"></i></a></li>
+                    </ul>
+                    <div class="post-navigation nav-links">
+                        <ul class="post-controls list-inline">
+                            <li>
+                                {% placeholder "prev_post" or %}
+                                <a class="post-prev" href="#"><i class="icon ion-ios7-arrow-thin-left"></i></a></li>
+                                {% endplaceholder %}
+                            <li>
+                                {% placeholder "next_post" or %}
+                                <a class="post-next" href="#"><i class="icon ion-ios7-arrow-thin-right"></i></a></li>
+                                {% endplaceholder %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="author-bio">
+                    <div class="row">
+                        <div class="author-avatar col-xs-4 col-sm-3 col-md-3 visible-desktop">
+                            {% placeholder "author_img" or %}
+                            <img src="/static/img/image-8.jpg" alt="image_blog"></div>
+                            {% endplaceholder %}
+                        <div class="author-details white col-md-9">
+                            <h3>{% placeholder "author_name" or %}AUTHOR_NAME{% endplaceholder %}</h3>
+                            <p>{% placeholder "author_body" or %}AUTHOR_BODY{% endplaceholder %}</p>
+                        </div>
+                    </div>
+                </div>
+                {% placeholder banner_leaderboard_bottom %}
+            </div>
+            <div class="col-md-4">
+                <div class="sidebar">
+
+                    <aside id="recent-posts-2" class="widget widget_recent_entries">
+                        <div class="widget-title">
+                            <h5 class="heading">RECENT POSTS</h5>
+
+                            <div class="fancy-line-small"></div>
+                        </div>
+                            {% placeholder "post_recent" or %}
+                            <ul>
+                                <li><a href="#">Recent blog post</a></li>
+                            </ul>
+                            {% endplaceholder %}
+                    </aside>
+
+                {% placeholder banner_square_right %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endplaceholder %}
+{% endblock %}

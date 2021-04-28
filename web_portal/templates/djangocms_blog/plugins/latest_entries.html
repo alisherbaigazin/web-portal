@@ -1,0 +1,20 @@
+{% load i18n static %}
+ <div id="featured-news" class="tab-pane fade in active">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="owl-carousel" style="display: flex">
+       {% for post in posts_list %}
+            {% include "djangocms_blog/includes/blog_item.html" with post=post image="true" TRUNCWORDS_COUNT=TRUNCWORDS_COUNT %}
+        {% empty %}
+        <p class="blog-empty">{% trans "No article found." %}</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <!-- END row -->
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <p><a href="#" class="btn btn-primary">View all news</a></p>
+    </div>
+  </div>
+</div>

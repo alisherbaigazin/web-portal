@@ -1,0 +1,33 @@
+{% load menu_tags %}
+
+{% for child in children %}
+  <li class="nav-item {% if child.children %} dropdown{% endif %}  child{% if child.selected %} selected{% endif %}{% if child.ancestor %} ancestor{% endif %}{% if child.sibling %} sibling{% endif %}{% if child.descendant %} descendant{% endif %}">
+
+        {% if child.children %}
+            <a class="nav-link dropdown-toggle"
+               data-bs-toggle="dropdown"
+               role="button"
+               id="{{ child.get_menu_title }}-id"
+               aria-expanded="false">
+                {{ child.get_menu_title }}
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="{{ child.get_menu_title }}-id">
+              {% show_menu 0 100 100 100 'nav-sub-item-template.html' "" "" child %}
+            </ul>
+
+        {% else %}
+            <a class="nav-link"
+               href="{{ child.attr.redirect_url|default:child.get_absolute_url }}"
+               role="button"
+               aria-expanded="false">
+                {{ child.get_menu_title }}
+            </a>
+
+    	{% endif %}
+
+  </li>
+{% endfor %}
+
+
+
