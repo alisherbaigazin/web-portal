@@ -1,0 +1,74 @@
+{% load static %}
+
+<div class="pano-class" style="width: 100%; height: 600px">
+    {{ instance.name }}
+
+    <ul>
+        {% for image in instance.images.all %}
+            <li>{{ image.image.url }}</li>
+
+            <ul>
+                {% for link in image.links.all %}
+                    <li>{{ link.image.url }}</li>
+                    <li>{{ link.image_link_name }}</li>
+
+                    <li>{{ link.image_link }}</li>???
+
+                    <li>{{ link.x_axis }}</li>
+                    <li>{{ link.y_axis }}</li>
+                    <li>{{ link.z_axis }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+
+
+</div>
+
+<script src="{% static 'js/panolens.js' %}"></script>
+<script src="{% static 'js/three.js' %}"></script>
+
+<script type="text/javascript">
+
+//const container = document.querySelector('.pano-class');
+//const img = '{% for image in instance.images.all %}{{ image.image.url }}:{{ image.x_axis }}:{{ image.y_axis }}:{{ image.z_axis }}\n' +
+//    '{% endfor %}'
+//console.log('asdasd', img.trim().split('\n'))
+//const imgs = img.trim().split('\n');
+//var panoramas, infospot, viewer;
+//
+//
+//setTimeout(function () {
+//    panoramas = []
+//
+//
+//    var im = imgs[0];
+//    var [imageUrl, xAxis, yAxis, zAxis] = im.split(':');
+//    var [imageUrl2, xAxis2, yAxis2, zAxis2] = imgs[1].split(':');
+//    var panorama = new PANOLENS.ImagePanorama( imageUrl );
+//    var panorama2 = new PANOLENS.ImagePanorama( imageUrl2 );
+//    viewer = new PANOLENS.Viewer( { container: container } );
+//    infospot = new PANOLENS.Infospot( 500, PANOLENS.DataImage.Info );
+//    infospot.position.set(  -100, -500, -5000 );
+//    infospot.addHoverText( "The Story" );
+//    infospot.addEventListener( 'click', function(){
+//      viewer.setPanorama( panorama2 );
+//    });
+//
+//    panorama.add( infospot );
+//    panoramas.push(panorama);
+//
+//    viewer.add( panorama);
+//
+//    viewer.addUpdateCallback(function(){
+//
+//    });
+//
+//
+//
+//},100);
+
+
+
+
+</script>
