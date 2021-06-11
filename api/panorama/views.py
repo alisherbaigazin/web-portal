@@ -5,15 +5,34 @@ from api.panorama.serializers import PanoramaImageSerializer, PanoramaSerializer
 
 
 class PanoramaImageListCreate(generics.ListCreateAPIView):
-    queryset = PanoramaImage.objects.all()
     serializer_class = PanoramaSerializer
+
+    def get_queryset(self):
+        if 'pk' in self.kwargs:
+            queryset = PanoramaImage.objects.filter(pk=self.kwargs['pk'])
+        else:
+            queryset = PanoramaImage.objects.all()
+        return queryset
 
 
 class PanoramaImageModelListCreate(generics.ListCreateAPIView):
-    queryset = PanoramaImageModel.objects.all()
     serializer_class = PanoramaImageSerializer
+
+    def get_queryset(self):
+        if 'pk' in self.kwargs:
+            queryset = PanoramaImageModel.objects.filter(pk=self.kwargs['pk'])
+        else:
+            queryset = PanoramaImageModel.objects.all()
+        return queryset
 
 
 class PanoramaImageLinkModelListCreate(generics.ListCreateAPIView):
-    queryset = PanoramaImageLinkModel.objects.all()
     serializer_class = PanoramaImageLinkSerializer
+
+    def get_queryset(self):
+        if 'pk' in self.kwargs:
+            queryset = PanoramaImageLinkModel.objects.filter(pk=self.kwargs['pk'])
+        else:
+            queryset = PanoramaImageLinkModel.objects.all()
+
+        return queryset
