@@ -11,6 +11,7 @@ admin.autodiscover()
 urlpatterns = [
     path("sitemap.xml", sitemap, {"sitemaps": {"cmspages": CMSSitemap}}),
     path("taggit_autosuggest/", include('taggit_autosuggest.urls')),
+    path('', include('api.panorama.urls')),
 ]
 
 

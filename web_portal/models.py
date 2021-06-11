@@ -1,3 +1,5 @@
+import json
+
 from cms.models.pluginmodel import CMSPlugin
 
 from django.db import models
@@ -6,6 +8,7 @@ from cms.models.pagemodel import Page
 
 class Hello(CMSPlugin):
     guest_name = models.CharField(max_length=50, default='Guest')
+    name = models.CharField(max_length=50, default='name')
 
 
 class Speciality(CMSPlugin):
@@ -30,7 +33,6 @@ class SpecialityList(CMSPlugin):
         paired_spec_list = []
         specs = self.related_link.all()
         sz = len(specs)
-        print(sz)
 
         for i in range(0, sz, 2):
             if i+1 >= sz or sz < 2:
@@ -42,3 +44,21 @@ class SpecialityList(CMSPlugin):
 
     def copy_relations(self, oldinstance):
         self.related_link.set(oldinstance.related_link.all())
+
+
+class PanoramaImage(CMSPlugin):
+    name = models.CharField(max_length=50, default='name')
+    images = models.ManyToManyField('PanoramaImageModel')
+
+
+class PanoramaImageModel(CMSPlugin):
+    image = models.ImageField(upload_to='images')
+    links = models.ManyToManyField('PanoramaImageLinkModel', blank=True)
+
+
+class PanoramaImageLinkModel(CMSPlugin):
+    image_link = models.ForeignKey('PanoramaImageModel', on_delete=models.PROTECT)
+    image_link_name = models.CharField(max_length=50, default='image_link_name')
+    x_axis = models.IntegerField(null=True)
+    y_axis = models.IntegerField(null=True)
+    z_axis = models.IntegerField(null=True)
