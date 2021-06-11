@@ -1,27 +1,6 @@
 {% load static %}
 
 <div class="pano-class" style="width: 100%; height: 600px">
-    {{ instance.name }}
-
-    <ul>
-        {% for image in instance.images.all %}
-            <li>{{ image.image.url }}</li>
-
-            <ul>
-                {% for link in image.links.all %}
-                    <li>{{ link.image.url }}</li>
-                    <li>{{ link.image_link_name }}</li>
-
-                    <li>{{ link.image_link }}</li>???
-
-                    <li>{{ link.x_axis }}</li>
-                    <li>{{ link.y_axis }}</li>
-                    <li>{{ link.z_axis }}</li>
-                {% endfor %}
-            </ul>
-        {% endfor %}
-    </ul>
-
 
 </div>
 
@@ -30,78 +9,77 @@
 
 <script type="text/javascript">
 
-const getPanoramaImages = () => {
-    axios.get('/en/api/get-panorama-images/')
-    .then(response => {
-        const images = response.data;
-        console.log(`GET panorama images`, images);
+const getPanoramaImages = () => axios.get('/en/api/get-panorama-images/');
+
+const getPanoramaImageModels = () => axios.get('/en/api/get-panorama-image-models/')
+
+const getPanoramaImageLinks = () => axios.get('/en/api/get-panorama-image-links/')
+
+const getPanoramaImagesById = (id) => axios.get('/en/api/get-panorama-images/'+id)
+
+const getPanoramaImageModelsById = (id) => axios.get('/en/api/get-panorama-image-models/'+id)
+
+const getPanoramaImageLinksById = (id) => axios.get('/en/api/get-panorama-image-links/'+id)
+
+
+
+const container = document.querySelector('.pano-class');
+var panoramas, infospot, viewer;
+// var imgId =
+// var panImage = getPanoramaImagesById(imgId);
+panoramas = []
+
+var panImage;
+getPanoramaImagesById("{{instance.id}}").then((response) => {
+    console.log('getPanoramaImagesById',response.data);
+    panImage = response.data[0];
+    viewer = new PANOLENS.Viewer( { container: container } );
+
+    panImage.images.forEach(x => {
+        getPanoramaImageModelsById(x).then((response1) => {
+            console.log('getPanoramaImageModelsById',response1.data[0])
+            createPano(response1.data[0], false)
+        })
     })
-    .catch(error => console.error(error));
-};
-
-const getPanoramaImageModels = () => {
-    axios.get('/en/api/get-panorama-image-models/')
-    .then(response => {
-        const images = response.data;
-        console.log(`GET panorama image models`, images);
-    })
-    .catch(error => console.error(error));
-};
-
-const getPanoramaImageLinks = () => {
-    axios.get('/en/api/get-panorama-image-links/')
-    .then(response => {
-        const images = response.data;
-        console.log(`GET panorama image links`, images);
-    })
-    .catch(error => console.error(error));
-};
 
 
-getPanoramaImages();
-getPanoramaImageModels();
-getPanoramaImageLinks();
+})
 
 
-//const container = document.querySelector('.pano-class');
-//const img = '{% for image in instance.images.all %}{{ image.image.url }}:{{ image.x_axis }}:{{ image.y_axis }}:{{ image.z_axis }}\n' +
-//    '{% endfor %}'
-//console.log('asdasd', img.trim().split('\n'))
-//const imgs = img.trim().split('\n');
-//var panoramas, infospot, viewer;
-//
-//
-//setTimeout(function () {
-//    panoramas = []
-//
-//
-//    var im = imgs[0];
-//    var [imageUrl, xAxis, yAxis, zAxis] = im.split(':');
-//    var [imageUrl2, xAxis2, yAxis2, zAxis2] = imgs[1].split(':');
-//    var panorama = new PANOLENS.ImagePanorama( imageUrl );
-//    var panorama2 = new PANOLENS.ImagePanorama( imageUrl2 );
-//    viewer = new PANOLENS.Viewer( { container: container } );
-//    infospot = new PANOLENS.Infospot( 500, PANOLENS.DataImage.Info );
-//    infospot.position.set(  -100, -500, -5000 );
-//    infospot.addHoverText( "The Story" );
-//    infospot.addEventListener( 'click', function(){
-//      viewer.setPanorama( panorama2 );
-//    });
-//
-//    panorama.add( infospot );
-//    panoramas.push(panorama);
-//
-//    viewer.add( panorama);
-//
-//    viewer.addUpdateCallback(function(){
-//
-//    });
-//
-//
-//
-//},100);
+const createInfo = (link) => {
+    infospot = new PANOLENS.Infospot( 500, PANOLENS.DataImage.Info );
+    infospot.position.set( link.x_axis, link.z_axis, link.y_axis );
+    infospot.addHoverText( link.image_link_name );
+    infospot.addEventListener( 'click', function(){
+        console.log('ckckc')
+       getPanoramaImageModelsById(link.image_link).then(res => {
+           createPano(res.data[0],true)
+       })
+    });
+    return infospot
+}
 
+const createPano = (im,setMain) => {
+   var panorama = new PANOLENS.ImagePanorama( im.image );
+   panoramas.push(panorama);
 
+    console.log('createPano', im,panoramas)
+   im.links.forEach(l => {
+       getPanoramaImageLinksById(l).then((response2) => {
+           panorama.add(createInfo(response2.data[0]))
+       }).then(() => {
+              viewer.add( panorama);
+          if (setMain) {
+            viewer.setPanorama( panorama );
+            } else {
+          }
+       })
+   })
+   // viewer.addUpdateCallback(function(){
+   //
+   // });
+
+}
 
 
 </script>
